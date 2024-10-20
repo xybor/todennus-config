@@ -11,6 +11,7 @@ type Variable struct {
 	Redis          RedisVariable          `envconfig:"redis"`
 	Authentication AuthenticationVariable `envconfig:"authentication"`
 	OAuth2         OAuth2Variable         `envconfig:"oauth2"`
+	Session        SessionVariable        `envconfig:"session"`
 }
 
 func DefaultVariable() Variable {
@@ -20,6 +21,7 @@ func DefaultVariable() Variable {
 		Redis:          DefaultRedisVariable(),
 		Authentication: DefaultAuthenticationVariable(),
 		OAuth2:         DefaultOAuth2Variable(),
+		Session:        DefaultSessionVariable(),
 	}
 }
 
@@ -88,11 +90,29 @@ func DefaultAuthenticationVariable() AuthenticationVariable {
 }
 
 type OAuth2Variable struct {
-	ClientSecretLength int `envconfig:"client_secret_length"`
+	IdPLoginURL                      string `envconfig:"idp_login_url"`
+	ClientSecretLength               int    `envconfig:"client_secret_length"`
+	AuthorizationCodeFlowExpiration  int    `envconfig:"authorization_code_flow_expiration"` // in second
+	AuthenticationCallbackExpiration int    `envconfig:"authentication_callback_expiration"` // in second
+	SessionUpdateExpiration          int    `envconfig:"session_update_expiration"`          // in second
 }
 
 func DefaultOAuth2Variable() OAuth2Variable {
 	return OAuth2Variable{
-		ClientSecretLength: 64,
+		IdPLoginURL:                      "http://localhost:7063/login",
+		ClientSecretLength:               64,
+		AuthorizationCodeFlowExpiration:  10 * 60, // 10m
+		AuthenticationCallbackExpiration: 5 * 60,  // 5m
+		SessionUpdateExpiration:          15,      // 15s
+	}
+}
+
+type SessionVariable struct {
+	Expiration int `envconfig:"expiration"`
+}
+
+func DefaultSessionVariable() SessionVariable {
+	return SessionVariable{
+		Expiration: 24 * 60 * 60, // 24h
 	}
 }
