@@ -13,22 +13,22 @@ type Config struct {
 	Variable
 }
 
-func Load(paths ...string) (Config, error) {
+func Load(paths ...string) (*Config, error) {
 	if len(paths) > 0 {
 		if err := godotenv.Load(paths...); err != nil {
-			return Config{}, err
+			return nil, err
 		}
 	}
 
-	c := Config{}
+	c := &Config{}
 	c.Variable = DefaultVariable()
 
 	if err := load(&c.Variable); err != nil {
-		return Config{}, err
+		return nil, err
 	}
 
 	if err := load(&c.Secret); err != nil {
-		return Config{}, err
+		return nil, err
 	}
 
 	return c, nil
