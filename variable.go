@@ -26,18 +26,20 @@ func DefaultVariable() Variable {
 }
 
 type ServerVariable struct {
-	Host     string `envconfig:"host"`
-	Port     int    `envconfig:"port"`
-	NodeID   int    `envconfig:"nodeid"`
-	LogLevel int    `envconfig:"loglevel"`
+	Host           string `envconfig:"host"`
+	Port           int    `envconfig:"port"`
+	NodeID         int    `envconfig:"nodeid"`
+	LogLevel       int    `envconfig:"loglevel"`
+	RequestTimeout int    `envconfig:"timeout"` // The timeout of each request (in millisecond).
 }
 
 func DefaultServerVariable() ServerVariable {
 	return ServerVariable{
-		Host:     "",
-		Port:     7063, // == tode
-		NodeID:   1,
-		LogLevel: int(logging.LevelDebug),
+		Host:           "0.0.0.0",
+		Port:           8080,
+		NodeID:         0,
+		LogLevel:       int(logging.LevelDebug),
+		RequestTimeout: 3000, // 3s
 	}
 }
 
