@@ -9,8 +9,8 @@ import (
 )
 
 type Config struct {
-	Secret
-	Variable
+	Secret   Secret
+	Variable Variable
 }
 
 func Load(paths ...string) (*Config, error) {
