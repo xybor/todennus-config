@@ -44,21 +44,14 @@ func DefaultServerVariable() ServerVariable {
 }
 
 type PostgresVariable struct {
-	LogLevel      int    `envconfig:"loglevel"`
-	Host          string `envconfig:"host"`
-	Port          int    `envconfig:"port"`
-	SSLMode       string `envconfig:"sslmode"`
-	Timezone      string `envconfig:"timezone"`
-	RetryAttempts int    `envconfig:"retry_attempts"`
-	RetryInterval int    `envconfig:"retry_interval"` // in second
+	LogLevel      int `envconfig:"loglevel"`
+	RetryAttempts int `envconfig:"retry_attempts"`
+	RetryInterval int `envconfig:"retry_interval"` // in second
 }
 
 func DefaultPostgresVariable() PostgresVariable {
 	return PostgresVariable{
 		LogLevel:      int(gormlogger.Warn),
-		Host:          "localhost",
-		Port:          5432,
-		SSLMode:       "disable",
 		RetryAttempts: 3,
 		RetryInterval: 1,
 	}

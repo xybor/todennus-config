@@ -9,9 +9,7 @@ type Secret struct {
 }
 
 type PostgresSecret struct {
-	User     string `envconfig:"user"`
-	Password string `envconfig:"password"`
-	DBName   string `envconfig:"db"`
+	DSN string `envconfig:"dsn"`
 }
 
 type AuthenticationSecret struct {
