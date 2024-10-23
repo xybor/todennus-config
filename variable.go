@@ -104,11 +104,11 @@ type OAuth2Variable struct {
 	// page again.
 	SessionUpdateExpiration int `envconfig:"session_update_expiration"` // in second
 
-	// FailureConsentExpiration is the timeout which consent failure result is
+	// ConsentSessionExpiration is the timeout which consent failure result is
 	// temporarily stored. Within this time, user must be redirected to
 	// /oauth2/authorize to responds to Client about the failure result.
 	// Otherwise, user will be redirected to consent page again.
-	FailureConsentExpiration int `envconfig:"consent_session_expiration"` // in second
+	ConsentSessionExpiration int `envconfig:"consent_session_expiration"` // in second
 
 	// ConsentExpiration is the timeout which the consent success result is
 	// stored. Within this time, every request to /oauth2/authorize will be
@@ -124,7 +124,7 @@ func DefaultOAuth2Variable() OAuth2Variable {
 		AuthorizationCodeFlowExpiration:  10 * 60,           // 10m
 		AuthenticationCallbackExpiration: 15 * 60,           // 15m
 		SessionUpdateExpiration:          15,                // 15s
-		FailureConsentExpiration:         15,                // 15s
+		ConsentSessionExpiration:         15,                // 15s
 		ConsentExpiration:                30 * 24 * 60 * 60, // 30d
 	}
 }
